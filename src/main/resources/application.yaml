@@ -1,0 +1,31 @@
+logging:
+  level:
+    root: trace
+spring:
+  application:
+    name: API Gateway
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay=
+      routes:
+        - id: health_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/bets/{segment}
+  security:
+    oauth2:
+      client:
+        registration:
+          api-gateway:
+            provider: betting-auth-server
+            client-id: "api-gateway"
+            client-secret: "test"
+            authorization-grant-type: "authorization_code"
+            redirect-uri: "http://localhost:8081/login/oauth2/code/{registrationId}"
+            scope: openid,profile
+        provider:
+          betting-auth-server:
+            issuer-uri: http://127.0.0.1:9000
+server:
+  port: 8081
