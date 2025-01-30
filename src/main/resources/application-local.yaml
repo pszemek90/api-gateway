@@ -1,24 +1,21 @@
-logging:
-  level:
-    org.springframework: trace
 spring:
-  application:
-    name: API Gateway
   cloud:
     gateway:
       default-filters:
         - TokenRelay=
       routes:
         - id: health_route
-          uri: http://bet-service
+          uri: http://localhost:8080
           predicates:
             - Path=/bets/{segment}
         - id: login
-          uri: http://login-service
+          uri: http://localhost:8082
           predicates:
             - Path=/login
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://betting-auth-server
+          issuer-uri: http://localhost:9000
+server:
+  port: 8081
