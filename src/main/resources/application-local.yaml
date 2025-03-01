@@ -5,7 +5,7 @@ spring:
         - TokenRelay=
       routes:
         - id: health_route
-          uri: http://localhost:8080
+          uri: http://localhost:8081
           predicates:
             - Path=/bets/{segment}
         - id: login
@@ -18,4 +18,4 @@ spring:
         jwt:
           issuer-uri: http://localhost:9000
 server:
-  port: 8081
+  port: 8080
