@@ -25,3 +25,12 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://authorization-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, metrics
+  metrics:
+    distribution:
+      slo:
+        spring.cloud.gateway.requests: PT0.1S,PT0.2S,PT0.5S,PT1.0S,PT5.0S,PT10.0S
