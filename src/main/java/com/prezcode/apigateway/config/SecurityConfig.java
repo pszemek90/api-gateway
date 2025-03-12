@@ -14,7 +14,10 @@ public class SecurityConfig {
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
     http.authorizeExchange(
-            authorize -> authorize.pathMatchers("/login").permitAll().anyExchange().authenticated())
+            authorize -> authorize.pathMatchers("/login", "/actuator/**")
+                    .permitAll()
+                    .anyExchange()
+                    .authenticated())
         .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new CsrfMatcher()))
         .oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
 
